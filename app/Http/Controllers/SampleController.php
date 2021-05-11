@@ -14,7 +14,10 @@ class SampleController extends Controller
      */
     public function index()
     {
-        //
+        $samples=Sample::orderBy('sample_number', 'desc')->get();
+        $title="Lista wpisów";
+
+        return view('samples.index')->with('samples', $samples)->with('title', $title);
     }
 
     /**
