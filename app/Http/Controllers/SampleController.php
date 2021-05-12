@@ -14,10 +14,24 @@ class SampleController extends Controller
      */
     public function index()
     {
-        $samples=Sample::orderBy('sample_number', 'desc')->get();
-        $title="Lista wpisów";
+        $samples=Sample::orderBy('id', 'desc')->get();
+        $title="Ostatnio wprowadzone próby";
 
-        return view('samples.index')->with('samples', $samples)->with('title', $title);
+        return view('samples.index')->with('samples',$samples)->with('title', $title);
+    }
+    public function list()
+    {
+        $samples=Sample::orderBy('sample_number', 'desc')->get();
+        $title="Wykaz wszystkich próbek";
+
+        return view('samples.index')->with('samples',$samples)->with('title', $title);
+    }
+    public function your_list()
+    {
+        $samples=Sample::where('user_id', auth()->id())->orderBy('sample_number', 'desc')->get();
+        $title="Wykaz wszystkich próbek";
+
+        return view('samples.index')->with('samples',$samples)->with('title', $title);
     }
 
     /**
@@ -27,7 +41,7 @@ class SampleController extends Controller
      */
     public function create()
     {
-        //
+        return view('samples.create')->with('title', 'Wprowadź dane kolejnej próby');
     }
 
     /**
@@ -38,7 +52,23 @@ class SampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $sample = new Sample();
+        $sample->date = $request->get('date');
+        $sample->media = $request->get('media');
+        $sample->sample_number = $request->get('sample_number');
+        $sample->equipment = $request->get('equipment');
+        $sample->method = $request->get('method');
+        $sample->project = $request->get('project');
+        $sample->alloy = $request->get('alloy');
+        $sample->substrate = $request->get('substrate');
+        $sample->support = $request->get('support');
+        $sample->test_time = $request->get('test_time');
+        $sample->temp = $request->get('temp');
+        $sample->remarks = $request->get('remarks');
+        $sample->user_id = $request->user()->id;
+        $sample->save();
+        $samples=Sample::orderBy('sample_number', 'desc')->get();
+        return redirect('sample');
     }
 
     /**
@@ -83,6 +113,6 @@ class SampleController extends Controller
      */
     public function destroy(Sample $sample)
     {
-        //
+
     }
 }

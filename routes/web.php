@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SampleController;
+use Illuminate\Support\Facades\Auth;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +24,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('sample', SampleController::class)->middleware('auth');
+Route::get('your-list', [SampleController::class, 'your_list'])->middleware('auth');
+Route::get('list', [SampleController::class, 'list'])->middleware('auth');
