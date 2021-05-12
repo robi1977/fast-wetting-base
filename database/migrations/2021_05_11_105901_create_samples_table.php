@@ -20,13 +20,13 @@ class CreateSamplesTable extends Migration
             $table->string('sample_number');
             $table->string('equipment');
             $table->string('method');
-            $table->string('project');
+            $table->string('project')->nullable();
             $table->string('alloy')->nullable();
             $table->string('substrate');
             $table->string('support')->nullable();
             $table->float('test_time');
             $table->float('temp');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
