@@ -17,9 +17,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-metro.css">
+    {{-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> --}}
+    {{-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-metro.css"> --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
 </head>
 <body>
     <div id="app">
@@ -58,8 +59,11 @@
             </div>
         </nav>
 
-        <main class="">
-            @yield('content')
+        <main>
+            @include('navi')
+            <div class="w3-container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

@@ -1,19 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w3-bar w3-light-grey">
-  <div class="w3-container">
-    <a href="{{ url('sample/create') }}" class="w3-btn w3-metro-green ">Dodaj próbę</a>
-    <a href="{{ url('sample') }}" class="w3-btn w3-metro-blue ">Lista prób</a>
-    <a href="{{ url('sample/your-list') }}" class="w3-btn w3-metro-dark-blue ">Lista prób wprowadzonych przez Ciebie</a>
-  </div>
   @if($title)
     <div class="w3-center">
       <h1>{{$title}}</h1>
     </div>
   @endif
   <form action={{ url('sample') }} method="POST">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+    @csrf
     <div class="w3-row-padding">
       <div class="w3-third">
         <label for="data_sample">Data testu:</label>
