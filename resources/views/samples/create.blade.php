@@ -7,7 +7,7 @@
     </div>
   @endif
   <form action={{ url('sample') }} method="POST">
-    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+    @csrf
     <div class="w3-row-padding">
       <div class="w3-third">
         <label for="data_sample">Data testu:</label>
