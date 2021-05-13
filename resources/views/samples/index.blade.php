@@ -1,19 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="w3-bar w3-light-grey">
-  <div class="w3-container">
-    <a href="{{ url('sample/create') }}" class="w3-btn w3-metro-green ">Dodaj próbę</a>
-    <a href="{{ url('list') }}" class="w3-btn w3-metro-blue ">Lista prób</a>
-    <a href="{{ url('your-list') }}" class="w3-btn w3-metro-dark-blue ">Lista prób wprowadzonych przez Ciebie</a>
-  </div>
-  {{-- @if($message)
-    <div class="w3-panel w3-metro-light-green w3-display-container">
-        <span onclick="this.parentElement.style.display='none'"
-        class="w3-button w3-display-topright">X</span>
-        <p>{{$message}}</p>
-    </div>
-  @endif --}}
   @if($title)
     <div class="w3-center">
       <h1>{{$title}}</h1>

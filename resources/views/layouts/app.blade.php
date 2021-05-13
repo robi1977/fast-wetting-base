@@ -58,8 +58,11 @@
             </div>
         </nav>
 
-        <main class="">
-            @yield('content')
+        <main>
+            @include('navi')
+            <div class="w3-container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
