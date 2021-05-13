@@ -29,7 +29,7 @@ class SampleController extends Controller
     public function your_list()
     {
         $samples=Sample::where('user_id', auth()->id())->orderBy('sample_number', 'desc')->get();
-        $title="Wykaz wszystkich próbek";
+        $title="Wykaz wprowadzonych przez Ciebie prób";
 
         return view('samples.index')->with('samples',$samples)->with('title', $title);
     }
@@ -67,8 +67,8 @@ class SampleController extends Controller
         $sample->remarks = $request->get('remarks');
         $sample->user_id = $request->user()->id;
         $sample->save();
-        $samples=Sample::orderBy('sample_number', 'desc')->get();
-        return redirect('sample');
+
+        return redirect()->route('sample.index')->with('success', 'Próbka dodana.');
     }
 
     /**
@@ -79,7 +79,7 @@ class SampleController extends Controller
      */
     public function show(Sample $sample)
     {
-        //
+        return view('samples.show', compact('sample'));
     }
 
     /**
@@ -90,7 +90,7 @@ class SampleController extends Controller
      */
     public function edit(Sample $sample)
     {
-        //
+        return view('samples.edit', compact('sample'))->with('title', "Edycja próby:");
     }
 
     /**
@@ -102,7 +102,21 @@ class SampleController extends Controller
      */
     public function update(Request $request, Sample $sample)
     {
-        //
+        $sample->date = $request->get('date');
+        $sample->media = $request->get('media');
+        $sample->sample_number = $request->get('sample_number');
+        $sample->equipment = $request->get('equipment');
+        $sample->method = $request->get('method');
+        $sample->project = $request->get('project');
+        $sample->alloy = $request->get('alloy');
+        $sample->substrate = $request->get('substrate');
+        $sample->support = $request->get('support');
+        $sample->test_time = $request->get('test_time');
+        $sample->temp = $request->get('temp');
+        $sample->remarks = $request->get('remarks');
+        $sample->user_id = $request->user()->id;
+        $sample->update();
+        return redirect()->route('sample.index')->with('success', 'Próbka udanie zaktualizowana.');
     }
 
     /**
@@ -113,6 +127,7 @@ class SampleController extends Controller
      */
     public function destroy(Sample $sample)
     {
-
+        $sample->delete();
+        return redirect()->route('sample.index')->with('success', 'Próbka usunięta z bazy.');
     }
 }
