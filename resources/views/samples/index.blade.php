@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+  @if($message=Session::get('success'))
+    <div class="w3-panel w3-pale-green w3-border w3-display-container">
+        <span onclick="this.parentElement.style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <p>{{$message}}</p>
+    </div>
+  @endif
   @if($title)
     <div class="w3-center">
       <h1>{{$title}}</h1>
@@ -33,12 +39,12 @@
             <td>{{$sample->test_time}}</td>
             <td>{{$sample->temp}}</td>
             <td>
-                <a href="{{ url('sample/'.$sample->id) }}"> Pokaż </a>
-                <a href="{{ url('sample/'.$sample->id.'/edit') }}"> Edytuj </a>
-                <form action="{{ url('sample/'.$sample->id) }}" method="delete">
+                <form action="{{ url('sample/'.$sample->id) }}" method="post">
                     @csrf
-                    <input type="hidden" value="{{$sample->id}}" name="id">
-                    <input type="submit" value="Usuń">
+                    @method('DELETE')
+                <a href="{{ url('sample/'.$sample->id) }}"><i class="fas fa-eye w3-text-green fa-lg"></i></a>
+                <a href="{{ url('sample/'.$sample->id.'/edit') }}"><i class="fas fa-edit w3-text-black fa-lg"></i></a>
+                <button type="submit" title="Delete" style="border: none; background-color:transparent;"><i class="fas fa-trash w3-text-red"></i></button>
                 </form>
             </td>
           </tr>
