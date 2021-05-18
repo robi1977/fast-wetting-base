@@ -12,7 +12,7 @@
       <h1>{{$title}}</h1>
     </div>
   @endif
-  @if (!$samples->count())
+  @if (!count($samples))
     <div class="w3-panel w3-red w3-center">
       <h2>Brak danych do wyświetlenia</h2>
     </div>

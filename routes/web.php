@@ -26,3 +26,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('sample', SampleController::class)->middleware('auth');
 Route::get('your-list', [SampleController::class, 'your_list'])->middleware('auth');
 Route::get('list', [SampleController::class, 'list'])->middleware('auth');
+Route::get('search', [SampleController::class, 'search'])->middleware('auth');
+Route::post('search-result', [SampleController::class, 'search_result'])->middleware('auth');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sample;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SampleController extends Controller
 {
@@ -129,5 +130,82 @@ class SampleController extends Controller
     {
         $sample->delete();
         return redirect()->route('sample.index')->with('success', 'Próbka usunięta z bazy.');
+    }
+
+    public function search()
+    {
+        $alloys=[];
+        $substrates=[];
+        $temps=[];
+        $test_times=[];
+
+        $samples= Sample::get();
+        foreach($samples as $sample){
+            array_push($alloys, $sample->alloy);
+            array_push($substrates, $sample->substrate);
+            array_push($temps, $sample->temp);
+            array_push($test_times, $sample->test_time);
+        }
+        $alloys=array_unique($alloys, SORT_STRING);
+        $alloys=array_values($alloys);
+        $substrates=array_unique($substrates, SORT_STRING);
+        $substrates=array_values($substrates);
+        $temps=array_unique($temps, SORT_STRING);
+        $temps=array_values($temps);
+        $test_times=array_unique($test_times, SORT_STRING);
+        $test_times=array_values($test_times);
+        return view('samples.search', compact('alloys', 'substrates', 'temps', 'test_times'));
+    }
+
+    public function search_result(Request $request)
+    {
+
+        $alloys="";
+        $substrates="";
+        $temps="";
+        $test_times="";
+
+        $query="select * from samples";
+        if(isset($request->alloys)){
+            if(is_array($request->alloys)){
+                $alloys="alloy='".implode("' or alloy='",$request->alloys)."'";
+            } else {
+                $alloys="alloy='".$request->alloys."'";
+            }
+        }
+        if(isset($request->substrates)){
+            if(is_array($request->substrates)){
+                $substrates="substrate='".implode("' or substrate='",$request->substrates)."'";
+            } else {
+                $substrates="substrate='".$request->substrates."'";
+            }
+        }
+        if(isset($request->temps)){
+            if(is_array($request->temps)){
+                $temps="temp='".implode("' or temp='",$request->temps)."'";
+            } else {
+                $temps="temp='".$request->temps."'";
+            }
+        }
+        if(isset($request->test_times)){
+            if(is_array($request->test_times)){
+                $test_times="test_time='".implode("' or test_time='",$request->test_times)."'";
+            } else {
+                $test_times="test_time='".$request->test_times."'";
+            }
+        }
+        $whereForQuery=[];
+
+        if($alloys!=""){array_push($whereForQuery, $alloys);}
+        if($substrates!=""){array_push($whereForQuery, $substrates);}
+        if($temps!=""){array_push($whereForQuery, $temps);}
+        if($test_times!=""){array_push($whereForQuery, $test_times);}
+
+        if($whereForQuery!=[]){
+            $query=$query." where ".implode(" and ",$whereForQuery);
+        }
+
+        $samples=DB::select($query);
+        return view('samples.index')->with('title', "Wyniki wyszukiwania")->with('samples',$samples);
     }
 }
