@@ -36,17 +36,18 @@
         @endforeach
     </div>
     @endif
-    <div class="w3-container w3-border w3-cell">
-        Czasy:
-        @if(count($test_times))
+
+    @if(count($test_times))
+        <div class="w3-container w3-border w3-cell">
+            Czasy:
             @foreach ($test_times as $test_time)
                 <p>
                     <input class="w3-check" type="checkbox" name="test_times[]" value="{{ $test_time }}">
                     <label>{{ $test_time }}</label>
                 </p>
             @endforeach
+        </div>
         @endif
-    </div>
     <input type="submit" value="Szukaj" class="w3-btn w3-green">
 </form>
 @endsection

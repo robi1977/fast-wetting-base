@@ -67,6 +67,7 @@ class SampleController extends Controller
         $sample->temp = $request->get('temp');
         $sample->remarks = $request->get('remarks');
         $sample->user_id = $request->user()->id;
+        $sample->time_unit = $request->get('time_unit');
         $sample->save();
 
         return redirect()->route('sample.index')->with('success', 'Próbka dodana.');
@@ -116,6 +117,7 @@ class SampleController extends Controller
         $sample->temp = $request->get('temp');
         $sample->remarks = $request->get('remarks');
         $sample->user_id = $request->user()->id;
+        $sample->time_unit = $request->get('time_unit');
         $sample->update();
         return redirect()->route('sample.index')->with('success', 'Próbka udanie zaktualizowana.');
     }

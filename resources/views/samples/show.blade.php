@@ -9,7 +9,7 @@
     </h2>
     <p>
         Temp: <strong>{{$sample->temp}}</strong>;
-        Czas: <strong>{{$sample->test_time}}</strong>;
+        Czas: <strong>{{$sample->test_time}} [{{$sample->time_unit}}]</strong>;
         Procedura: {{$sample->method}}</p>
     <p>
         Data: <i>{{$sample->date}}</i>;

@@ -39,8 +39,14 @@
     </div>
     <div class="w3-row-padding">
       <div class="w3-third">
-        <label for="test_time">Czas [min]:</label>
-        <input id="test_time" type="number" step="0.01" name="test_time" class="w3-input" value="{{ $sample->test_time }}" required/>
+        <label for="test_time">Czas:</label>
+        <div class="w3-row">
+            <input id="test_time" type="number" step="0.01" name="test_time" class="w3-input w3-threequarter" value="{{  $sample->test_time }}" required/>
+            <select name="time_unit" class="w3-select w3-quarter">
+                <option value="min" selected>min</option>
+                <option value="sec" >sec</option>
+            </select>
+        </div>
       </div>
       <div class="w3-third">
         <label for="temp">Temperatura [&deg;C]:</label>
